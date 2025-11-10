@@ -12,6 +12,20 @@ public enum DestinationArea {
     private final String label;
     private final String description;
 
+    DestinationArea(String label, String description) {
+        this.label = label;
+        this.description = description;
+    }
+
+    public static DestinationArea fromLabel(final String label) {
+        return Arrays.stream(values())
+                .filter(area -> area.label.equals(label))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "[ERROR] 목적지 구역이 올바르지 않습니다"
+                ));
+    }
+
     public String getLabel() {
         return label;
     }
