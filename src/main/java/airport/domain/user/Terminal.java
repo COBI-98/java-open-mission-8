@@ -12,6 +12,14 @@ public enum Terminal {
     Terminal(String code, String description) {
         this.code = code;
         this.description = description;
+    }
+
+    public static Terminal from(String code) {
+        return Arrays.stream(values())
+                .filter(terminal -> terminal.code.equalsIgnoreCase(code))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 지원하지 않는 터미널입니다"));
+    }
 
 
     public String getCode() {
