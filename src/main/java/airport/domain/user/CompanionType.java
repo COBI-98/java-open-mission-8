@@ -14,6 +14,15 @@ public enum CompanionType {
         this.description = description;
     }
 
+    public static CompanionType from(final String name) {
+        return Arrays.stream(values())
+                .filter(type -> type.name().equalsIgnoreCase(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "[ERROR] 지원하지 않는 동행자 유형입니다"
+                ));
+    }
+
     public String getDescription() {
         return description;
     }
