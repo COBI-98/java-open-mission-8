@@ -15,6 +15,15 @@ public enum TravelPreference {
         this.description = description;
     }
 
+    public static TravelPreference from(final String name) {
+        return Arrays.stream(values())
+                .filter(pref -> pref.name().equalsIgnoreCase(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "[ERROR] 지원하지 않는 이동 우선순위입니다"
+                ));
+    }
+
     public String getDescription() {
         return description;
     }
