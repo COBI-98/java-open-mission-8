@@ -20,3 +20,14 @@ class LuggageCountTest {
         assertThat(luggageCount.value()).isEqualTo(input);
     }
 
+    @DisplayName("validateRange(): 0~3 사이가 아니면 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 4})
+    void validateRange_luggageCount_fail(final int input) {
+        String message = "[ERROR] 캐리어 개수는 0~3 사이의 정수만 가능합니다.";
+
+        assertThatThrownBy(() -> LuggageCount.of(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(message);
+    }
+}
