@@ -16,11 +16,35 @@ public final class LuggageCount {
 
     public static LuggageCount of(final int value) {
         return new LuggageCount(value);
+    }
+
+    public static LuggageCount parse(final String input) {
+        String trimmedCount = validateNonBlank(input);
+        validateDigits(trimmedCount);
+        return of(parseInt(trimmedCount));
+    }
+
+
+
     private static void validateRange(final int value) {
         if (value < MIN_LUGGAGE_COUNT || value > MAX_LUGGAGE_COUNT) {
             throw new IllegalArgumentException(
                     "[ERROR] 캐리어 개수는 0~3 사이의 정수만 가능합니다."
             );
+        }
+    }
+
+    private static String validateNonBlank(final String input) {
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException("[ERROR] 캐리어 개수는 비어있거나 공백일 수 없습니다.");
+        }
+        return input.strip();
+    }
+
+    private static void validateDigits(final String input) {
+        if (!input.chars()
+                .allMatch(Character::isDigit)) {
+            throw new IllegalArgumentException("[ERROR] 캐리어 개수는 숫자만 입력할 수 있습니다.");
         }
     }
 

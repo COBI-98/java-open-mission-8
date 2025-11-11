@@ -30,4 +30,26 @@ class LuggageCountTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(message);
     }
+
+    @DisplayName("validateNonBlank(): 캐리어 개수에 빈 문자열/공백이 들어가면 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"", "   "})
+    void validateNonBlank_luggageCount_fail(final String input) {
+        String message = "[ERROR] 캐리어 개수는 비어있거나 공백일 수 없습니다.";
+
+        assertThatThrownBy(() -> LuggageCount.parse(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(message);
+    }
+
+    @DisplayName("validateDigits(): 캐리어 개수에 문자가 들어가면 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"1a", "two", ";"})
+    void validateDigits_luggageCount_fail(final String input) {
+        String message = "[ERROR] 캐리어 개수는 숫자만 입력할 수 있습니다.";
+
+        assertThatThrownBy(() -> LuggageCount.parse(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(message);
+    }
 }
