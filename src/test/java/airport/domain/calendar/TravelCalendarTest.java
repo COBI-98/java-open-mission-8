@@ -26,4 +26,21 @@ class TravelCalendarTest {
                 .isEqualTo(DayType.HOLIDAY);
     }
 
+    @DisplayName("congestionFactorOf(): 주말/공휴일은 평일보다 혼잡도 계수가 크다.")
+    @Test
+    void congestionFactorOf_travelCalendar_fail() {
+        // given
+        LocalDate holiday = LocalDate.of(2025, 12, 25);
+        TravelCalendar calendar =
+                new FixedHolidayTravelCalendar(Set.of(holiday));
+
+        // when
+        double weekday = calendar.congestionFactorOf(LocalDate.of(2025, 12, 24));
+        double weekend = calendar.congestionFactorOf(LocalDate.of(2025, 12, 27));
+        double holi = calendar.congestionFactorOf(holiday);
+
+        // then
+        assertThat(weekend).isGreaterThanOrEqualTo(weekday);
+        assertThat(holi).isGreaterThanOrEqualTo(weekend);
+    }
 }

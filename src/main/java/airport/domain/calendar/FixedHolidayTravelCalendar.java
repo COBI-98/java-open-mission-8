@@ -5,6 +5,7 @@ import java.util.Set;
 
 public final class FixedHolidayTravelCalendar implements TravelCalendar {
 
+    private static final double WEEKDAY_FACTOR = 1.0;
 
     private final Set<LocalDate> holidays;
 
@@ -31,6 +32,10 @@ public final class FixedHolidayTravelCalendar implements TravelCalendar {
 
     @Override
     public double congestionFactorOf(final LocalDate date) {
+        DayType dayType = dayTypeOf(date);
+        if (dayType == DayType.WEEKDAY) {
+            return WEEKDAY_FACTOR;
+        }
         return dayType.baseCongestionFactor();
     }
 }
