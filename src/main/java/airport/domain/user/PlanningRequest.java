@@ -59,6 +59,14 @@ public final class PlanningRequest {
         );
     }
 
+    private Set<RequiredAirportTask> validateTasks(
+            final Set<RequiredAirportTask> tasks
+    ) {
+        if (tasks == null || tasks.isEmpty()) {
+            throw new IllegalArgumentException(ERROR_EMPTY_TASKS);
+        }
+        return Collections.unmodifiableSet(tasks);
+    }
 
     public ArrivalDateTime arrivalDateTime() {
         return arrivalDateTime;

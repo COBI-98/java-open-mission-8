@@ -32,4 +32,24 @@ class PlanningRequestTest {
         assertThat(request.requiredTasks()).hasSize(2);
         assertThat(request.travelPreference()).isEqualTo(TravelPreference.TIME);
     }
+
+    @DisplayName("of(): 공항 작업이 비어있으면 예외가 발생한다.")
+    @Test
+    void of_planningRequest_fail() {
+        // given
+        Set<RequiredAirportTask> emptyTasks = EnumSet.noneOf(RequiredAirportTask.class);
+
+        // when && then
+        assertThatThrownBy(() -> PlanningRequest.of(
+                ArrivalDateTime.from("2025-12-24 18:30"),
+                Terminal.from("T1"),
+                DestinationArea.fromLabel("명동/시청"),
+                LuggageCount.of(1),
+                CompanionType.from("ALONE"),
+                TravelPreference.from("TIME"),
+                LanguageProfile.from("ENGLISH,BASIC"),
+                emptyTasks
+        )).isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 최소 한 개 이상의 공항 작업을 선택해야 합니다.");
+    }
 }
