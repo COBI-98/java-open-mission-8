@@ -25,4 +25,21 @@ class TransportSelectionPolicyTest {
                 TravelPreference.TIME
         );
 
+        // then
+        assertThat(best.getType()).isEqualTo(TransportType.AREX_SUBWAY);
+    }
+
+    @DisplayName("selectBest(): 후보가 비어있으면 예외가 발생한다.")
+    @Test
+    void selectBest_transportSelectionPolicy_fail() {
+        // given
+        TransportSelectionPolicy policy = new TransportSelectionPolicy();
+
+        // when && then
+        assertThatThrownBy(() -> policy.selectBest(
+                List.of(),
+                TravelPreference.TIME
+        )).isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 교통수단 후보가 비어있습니다.");
+    }
 }
