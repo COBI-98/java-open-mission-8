@@ -51,4 +51,17 @@ public class OutputView {
                 request.requiredTasks());
         System.out.println();
     }
+
+    public void printPlan(final ItineraryPlan plan) {
+        System.out.println(SECTION_TIMELINE_TITLE);
+        for (ItineraryStep step : plan.steps()) {
+            System.out.printf((FORMAT_TIMELINE_STEP) + "%n",
+                    step.start().toLocalTime(),
+                    step.end().toLocalTime(),
+                    step.stepType().name(),
+                    step.description()
+            );
+        }
+        System.out.println();
+    }
 }
