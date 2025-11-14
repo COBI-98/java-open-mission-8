@@ -86,4 +86,10 @@ public class OutputView {
         System.out.printf((FORMAT_REASON_BY_PREFERENCE) + "%n",
                 request.travelPreference().name());
         System.out.println();
+    }
+
+    public void printError(final String message) {
+        System.out.println(message);
+    }
+
 }
