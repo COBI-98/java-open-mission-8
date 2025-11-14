@@ -14,6 +14,14 @@ public class OutputView {
     private static final String SECTION_TIMELINE_TITLE = "<추천 타임라인>";
     private static final String SECTION_PLAN_SUMMARY_TITLE = "<요약 정보>";
 
+    private static final String FORMAT_INPUT_ARRIVAL_DATETIME = "- 도착 시각: %s";
+    private static final String FORMAT_INPUT_TERMINAL = "- 도착 터미널: %s";
+    private static final String FORMAT_INPUT_DESTINATION_AREA = "- 목적지 구역: %s";
+    private static final String FORMAT_INPUT_LUGGAGE_COUNT = "- 짐 개수: %d";
+    private static final String FORMAT_INPUT_COMPANION_TYPE = "- 동행자 유형: %s";
+    private static final String FORMAT_INPUT_TRAVEL_PREFERENCE = "- 이동 우선순위: %s";
+    private static final String FORMAT_INPUT_LANGUAGE_PROFILE = "- 언어/한국어 이해: %s / %s";
+    private static final String FORMAT_INPUT_REQUIRED_TASKS = "- 공항 내 작업: %s";
 
     public void printGreeting() {
         System.out.println(GREETING_LINE_1);
@@ -21,4 +29,26 @@ public class OutputView {
         System.out.println();
     }
 
+    public void printInputSummary(final PlanningRequest request) {
+        System.out.println();
+        System.out.println(SECTION_INPUT_SUMMARY_TITLE);
+        System.out.printf((FORMAT_INPUT_ARRIVAL_DATETIME) + "%n",
+                request.arrivalDateTime().formattedToDate());
+        System.out.printf((FORMAT_INPUT_TERMINAL) + "%n",
+                request.terminal().name());
+        System.out.printf((FORMAT_INPUT_DESTINATION_AREA) + "%n",
+                request.destinationArea().getLabel());
+        System.out.printf((FORMAT_INPUT_LUGGAGE_COUNT) + "%n",
+                request.luggageCount().value());
+        System.out.printf((FORMAT_INPUT_COMPANION_TYPE) + "%n",
+                request.companionType().name());
+        System.out.printf((FORMAT_INPUT_TRAVEL_PREFERENCE) + "%n",
+                request.travelPreference().name());
+        System.out.printf((FORMAT_INPUT_LANGUAGE_PROFILE) + "%n",
+                request.languageProfile().language().name(),
+                request.languageProfile().koreanSignLevel().name());
+        System.out.printf((FORMAT_INPUT_REQUIRED_TASKS) + "%n",
+                request.requiredTasks());
+        System.out.println();
+    }
 }
