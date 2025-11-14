@@ -23,6 +23,14 @@ public class OutputView {
     private static final String FORMAT_INPUT_LANGUAGE_PROFILE = "- 언어/한국어 이해: %s / %s";
     private static final String FORMAT_INPUT_REQUIRED_TASKS = "- 공항 내 작업: %s";
 
+    private static final String FORMAT_TIMELINE_STEP = "%s ~ %s [%s] %s";
+
+    private static final String FORMAT_PLAN_TOTAL_DURATION = "- 총 예상 소요 시간: %d분";
+
+    private static final int THREE_HOURS_IN_MINUTES = 180;
+    private static final String MESSAGE_WITHIN_THREE_HOURS = "3시간 이내 도착";
+    private static final String FORMAT_REASON_BY_PREFERENCE = "우선순위 %s 기준으로 가장 빠른 루트를 선택했습니다.";
+
     public void printGreeting() {
         System.out.println(GREETING_LINE_1);
         System.out.println(GREETING_LINE_2);
@@ -64,4 +72,18 @@ public class OutputView {
         }
         System.out.println();
     }
+
+    public void printSummary(final ItineraryPlan plan, final PlanningRequest request) {
+        Duration total = plan.totalDuration();
+        long minutes = total.toMinutes();
+
+        System.out.println(SECTION_PLAN_SUMMARY_TITLE);
+        System.out.printf((FORMAT_PLAN_TOTAL_DURATION) + "%n", minutes);
+
+        if (minutes <= THREE_HOURS_IN_MINUTES) {
+            System.out.println(MESSAGE_WITHIN_THREE_HOURS);
+        }
+        System.out.printf((FORMAT_REASON_BY_PREFERENCE) + "%n",
+                request.travelPreference().name());
+        System.out.println();
 }
