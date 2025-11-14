@@ -30,7 +30,60 @@ public class InputView {
             "이동 우선순위를 입력해 주세요. (TIME, COST, COMFORT, EXPERIENCE 중 택1)";
     private static final String PROMPT_LANGUAGE_PROFILE =
             "선호 언어와 한국어 이해 수준을 입력해 주세요. (예: ENGLISH,BASIC)";
+    private static final String PROMPT_REQUIRED_TASKS =
+            "공항에서 반드시 처리하고 싶은 일을 입력해 주세요. (예: USIM,EXCHANGE,MEAL)";
 
+    public ArrivalDateTime readArrivalDateTime() {
+        System.out.println(PROMPT_ARRIVAL_DATETIME);
+        String input = Console.readLine();
+        return ArrivalDateTime.from(input);
+    }
 
+    public Terminal readTerminal() {
+        System.out.println(PROMPT_TERMINAL);
+        String input = Console.readLine();
+        return Terminal.from(input);
+    }
 
+    public DestinationArea readDestinationArea() {
+        System.out.println(PROMPT_DESTINATION_AREA);
+        String input = Console.readLine();
+        return DestinationArea.fromLabel(input);
+    }
+
+    public LuggageCount readLuggageCount() {
+        System.out.println(PROMPT_LUGGAGE_COUNT);
+        String input = Console.readLine();
+        return LuggageCount.parse(input);
+    }
+
+    public CompanionType readCompanionType() {
+        System.out.println(PROMPT_COMPANION_TYPE);
+        String input = Console.readLine();
+        return CompanionType.from(input);
+    }
+
+    public TravelPreference readTravelPreference() {
+        System.out.println(PROMPT_TRAVEL_PREFERENCE);
+        String input = Console.readLine();
+        return TravelPreference.from(input);
+    }
+
+    public LanguageProfile readLanguageProfile() {
+        System.out.println(PROMPT_LANGUAGE_PROFILE);
+        String input = Console.readLine();
+        return LanguageProfile.from(input);
+    }
+
+    public Set<RequiredAirportTask> readRequiredTasks() {
+        System.out.println(PROMPT_REQUIRED_TASKS);
+        String input = Console.readLine();
+        List<String> tokens = ConsoleLineParser.splitByComma(input);
+
+        EnumSet<RequiredAirportTask> tasks = EnumSet.noneOf(RequiredAirportTask.class);
+        for (String token : tokens) {
+            tasks.add(RequiredAirportTask.from(token));
+        }
+        return tasks;
+    }
 }
