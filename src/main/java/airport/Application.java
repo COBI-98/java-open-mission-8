@@ -12,5 +12,14 @@ import java.util.Set;
 
 public class Application {
     public static void main(String[] args) {
+        TravelCalendar travelCalendar = new FixedHolidayTravelCalendar(
+                Set.of(LocalDate.of(2025, 12, 25))
+        );
+
+        TransportSelectionPolicy policy = new TransportSelectionPolicy();
+        ItineraryPlanner planner = new ItineraryPlanner(travelCalendar, policy);
+
+        AirportPlannerController controller = new AirportPlannerController(new InputView(), new OutputView(), planner);
+        controller.start();
     }
 }
