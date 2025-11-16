@@ -39,6 +39,7 @@ public class AirportPlannerController {
         outputView.printGreeting();
 
         try {
+            PlanningRequest request = createRequestFromUserInput();
             outputView.printInputSummary(request);
 
             ItineraryPlan plan = itineraryPlanner.createPlan(request);
@@ -50,4 +51,105 @@ public class AirportPlannerController {
         }
     }
 
+    private PlanningRequest createRequestFromUserInput() {
+        ArrivalDateTime arrivalDateTime = readArrivalDateTimeWithRetry();
+        Terminal terminal = readTerminalWithRetry();
+        DestinationArea destinationArea = readDestinationAreaWithRetry();
+        LuggageCount luggageCount = readLuggageCountWithRetry();
+        CompanionType companionType = readCompanionTypeWithRetry();
+        TravelPreference travelPreference = readTravelPreferenceWithRetry();
+        LanguageProfile languageProfile = readLanguageProfileWithRetry();
+        Set<RequiredAirportTask> tasks = readRequiredTasksWithRetry();
+
+        return PlanningRequest.of(
+                arrivalDateTime,
+                terminal,
+                destinationArea,
+                luggageCount,
+                companionType,
+                travelPreference,
+                languageProfile,
+                tasks
+        );
+    }
+
+    private ArrivalDateTime readArrivalDateTimeWithRetry() {
+        while (true) {
+            try {
+                return inputView.readArrivalDateTime();
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private Terminal readTerminalWithRetry() {
+        while (true) {
+            try {
+                return inputView.readTerminal();
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private DestinationArea readDestinationAreaWithRetry() {
+        while (true) {
+            try {
+                return inputView.readDestinationArea();
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private LuggageCount readLuggageCountWithRetry() {
+        while (true) {
+            try {
+                return inputView.readLuggageCount();
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private CompanionType readCompanionTypeWithRetry() {
+        while (true) {
+            try {
+                return inputView.readCompanionType();
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private TravelPreference readTravelPreferenceWithRetry() {
+        while (true) {
+            try {
+                return inputView.readTravelPreference();
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private LanguageProfile readLanguageProfileWithRetry() {
+        while (true) {
+            try {
+                return inputView.readLanguageProfile();
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+    }
+
+    private Set<RequiredAirportTask> readRequiredTasksWithRetry() {
+        while (true) {
+            try {
+                return inputView.readRequiredTasks();
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+    }
 }
