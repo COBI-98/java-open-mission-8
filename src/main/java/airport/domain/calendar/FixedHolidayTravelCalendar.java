@@ -36,6 +36,18 @@ public final class FixedHolidayTravelCalendar implements TravelCalendar {
         if (dayType == DayType.WEEKDAY) {
             return WEEKDAY_FACTOR;
         }
-        return dayType.baseCongestionFactor();
+        return dayType.taskDelayFactor();
+    }
+
+    @Override
+    public DayType resolveDayType(final LocalDate date) {
+        if (holidays.contains(date)) {
+            return DayType.HOLIDAY;
+        }
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+            return DayType.WEEKEND;
+        }
+        return DayType.WEEKDAY;
     }
 }

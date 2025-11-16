@@ -7,5 +7,6 @@ public interface TravelCalendar {
     DayType dayTypeOf(LocalDate date);
 
     double congestionFactorOf(LocalDate date);
-    
+
+    DayType resolveDayType(LocalDate date);
 }
