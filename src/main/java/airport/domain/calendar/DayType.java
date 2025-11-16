@@ -1,19 +1,23 @@
 package airport.domain.calendar;
 
 public enum DayType {
-    WEEKDAY(1.0),
-    WEEKEND(1.2),
-    HOLIDAY(1.3),
-    PEAK_SEASON(1.4);
+    WEEKDAY(1.0, 1.0),
+    WEEKEND(1.1, 1.05),
+    HOLIDAY(1.2, 1.1);
 
-    private final double baseCongestionFactor;
+    private final double taskDelayFactor;
+    private final double transportDelayFactor;
 
-    DayType(final double baseCongestionFactor) {
-        this.baseCongestionFactor = baseCongestionFactor;
+    DayType(final double taskDelayFactor, final double transportDelayFactor) {
+        this.taskDelayFactor = taskDelayFactor;
+        this.transportDelayFactor = transportDelayFactor;
     }
 
-    public double baseCongestionFactor() {
-        return baseCongestionFactor;
+    public double taskDelayFactor() {
+        return taskDelayFactor;
     }
 
+    public double transportDelayFactor() {
+        return transportDelayFactor;
+    }
 }
