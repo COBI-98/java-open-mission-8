@@ -14,10 +14,10 @@ public final class TransportSelectionPolicy {
     public TransportOption selectPriority(final PlanningRequest request, final DayType dayType) {
 
         List<TransportOption> candidates = List.of(
-                new TransportOption(TransportType.AIRPORT_BUS, 70, 17000, 0),
-                new TransportOption(TransportType.AREX_SUBWAY, 60, 10000, 0),
-                new TransportOption(TransportType.SUBWAY, 80, 5000, 2),
-                new TransportOption(TransportType.TAXI, 65, 60000, 0)
+                new TransportOption(TransportType.AIRPORT_BUS, 70, 0, 17_000),
+                new TransportOption(TransportType.AREX_SUBWAY, 60, 0, 10_000),
+                new TransportOption(TransportType.SUBWAY, 80, 2, 5_000),
+                new TransportOption(TransportType.TAXI, 65, 0, 60_000)
         );
 
         TravelPreference preference = request.travelPreference();
